@@ -14,6 +14,9 @@ import { Cell3DLab } from '../labs/Cell3DLab';
 import { ElectricCircuitLab } from '../labs/ElectricCircuitLab';
 import { BoxUnfoldLab } from '../labs/BoxUnfoldLab';
 import { AtomBohrLab } from '../labs/AtomBohrLab';
+import { Clock3DLab } from '../labs/Clock3DLab';
+import { AreaGrid3DLab } from '../labs/AreaGrid3DLab';
+import { OpticsLensLab } from '../labs/OpticsLensLab';
 
 interface LabWorkspaceProps {
   lab: LabItem;
@@ -26,24 +29,35 @@ export const LabWorkspace: React.FC<LabWorkspaceProps> = ({ lab, onBack }) => {
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
 
-  // State bài Lego Toán 2
+  // State Đồng hồ Lớp 1
+  const [clockHour, setClockHour] = useState<number>(3);
+  const [clockMinute, setClockMinute] = useState<number>(0);
+
+  // State Lego Toán 2
   const [legoRows, setLegoRows] = useState<number>(3);
   const [legoCols, setLegoCols] = useState<number>(4);
 
-  // State bài Tế bào Lớp 6
+  // State Lưới diện tích Toán 3
+  const [rectLength, setRectLength] = useState<number>(5);
+  const [rectWidth, setRectWidth] = useState<number>(3);
+
+  // State Tế bào Lớp 6
   const [cellType, setCellType] = useState<'plant' | 'animal'>('plant');
   const [showMembrane, setShowMembrane] = useState<boolean>(true);
 
-  // State bài Mạch điện Lớp 8
+  // State Mạch điện Lớp 8
   const [circuitMode, setCircuitMode] = useState<'series' | 'parallel'>('series');
   const [isSwitchOn, setIsSwitchOn] = useState<boolean>(true);
 
-  // State bài Khai triển hộp Lớp 5-7
+  // State Khai triển hộp Lớp 5
   const [unfoldPercent, setUnfoldPercent] = useState<number>(40);
   const [isCube, setIsCube] = useState<boolean>(false);
 
-  // State bài Nguyên tử Bohr Lớp 7
+  // State Nguyên tử Bohr Lớp 7
   const [atomicNumber, setAtomicNumber] = useState<number>(6);
+
+  // State Thấu kính Lớp 9
+  const [objectDist, setObjectDist] = useState<number>(5.0);
 
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-slate-950">
@@ -73,8 +87,14 @@ export const LabWorkspace: React.FC<LabWorkspaceProps> = ({ lab, onBack }) => {
       <div className="flex flex-1 flex-col overflow-hidden lg:flex-row">
         {/* Sân khấu 3D */}
         <div className="relative h-[55vh] w-full lg:h-full lg:flex-1">
+          {lab.id === 'clock-3d-grade1' && (
+            <Clock3DLab hour={clockHour} minute={clockMinute} />
+          )}
           {lab.id === 'lego-multiplication' && (
             <LegoMathLab rows={legoRows} cols={legoCols} />
+          )}
+          {lab.id === 'area-grid-3d' && (
+            <AreaGrid3DLab length={rectLength} width={rectWidth} />
           )}
           {lab.id === 'box-unfold-3d' && (
             <BoxUnfoldLab unfoldPercent={unfoldPercent} isCube={isCube} />
@@ -94,6 +114,9 @@ export const LabWorkspace: React.FC<LabWorkspaceProps> = ({ lab, onBack }) => {
               circuitMode={circuitMode}
               isSwitchOn={isSwitchOn}
             />
+          )}
+          {lab.id === 'optics-lens-3d' && (
+            <OpticsLensLab objectDistance={objectDist} />
           )}
           {lab.id === 'earth-motion' && (
             <EarthMotionLab speed={speed} isPaused={isPaused} />
@@ -147,7 +170,73 @@ export const LabWorkspace: React.FC<LabWorkspaceProps> = ({ lab, onBack }) => {
           <div className="flex-1 overflow-y-auto p-5">
             {activeTab === 'controls' && (
               <div className="space-y-5">
-                {/* 1. Lego Toán 2 */}
+                {/* 1. Đồng hồ Lớp 1 */}
+                {lab.id === 'clock-3d-grade1' && (
+                  <>
+                    <div>
+                      <div className="mb-2 flex justify-between text-xs font-medium text-slate-700">
+                        <span>Kim giờ (màu đỏ)</span>
+                        <span className="font-mono font-bold text-rose-600">
+                          {clockHour} giờ
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-6 gap-1.5">
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((h) => (
+                          <button
+                            key={h}
+                            onClick={() => setClockHour(h)}
+                            className={[
+                              'rounded-lg border py-1.5 font-mono text-xs font-bold',
+                              clockHour === h
+                                ? 'border-rose-600 bg-rose-600 text-white'
+                                : 'border-slate-200 bg-slate-50 text-slate-700',
+                            ].join(' ')}
+                          >
+                            {h}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="mb-2 text-xs font-medium text-slate-700">
+                        Kim phút (màu xanh)
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          onClick={() => setClockMinute(0)}
+                          className={[
+                            'rounded-lg border py-2 text-xs font-semibold',
+                            clockMinute === 0
+                              ? 'border-sky-600 bg-sky-600 text-white'
+                              : 'border-slate-200 bg-slate-50 text-slate-700',
+                          ].join(' ')}
+                        >
+                          Giờ đúng (:00)
+                        </button>
+                        <button
+                          onClick={() => setClockMinute(30)}
+                          className={[
+                            'rounded-lg border py-2 text-xs font-semibold',
+                            clockMinute === 30
+                              ? 'border-sky-600 bg-sky-600 text-white'
+                              : 'border-slate-200 bg-slate-50 text-slate-700',
+                          ].join(' ')}
+                        >
+                          Giờ rưỡi (:30)
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="rounded-xl border border-sky-200 bg-sky-50 p-4 text-center">
+                      <div className="font-mono text-lg font-bold text-slate-900">
+                        {clockHour} giờ {clockMinute === 0 ? 'đúng' : '30 phút (rưỡi)'}
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* 2. Lego Toán 2 */}
                 {lab.id === 'lego-multiplication' && (
                   <>
                     <div>
@@ -211,7 +300,65 @@ export const LabWorkspace: React.FC<LabWorkspaceProps> = ({ lab, onBack }) => {
                   </>
                 )}
 
-                {/* 2. Khai triển hình hộp */}
+                {/* 3. Lưới diện tích Toán 3 */}
+                {lab.id === 'area-grid-3d' && (
+                  <>
+                    <div>
+                      <div className="mb-1.5 flex justify-between text-xs font-medium text-slate-700">
+                        <span>Chiều dài (a)</span>
+                        <span className="font-mono font-bold text-sky-600">
+                          {rectLength} cm
+                        </span>
+                      </div>
+                      <input
+                        type="range"
+                        min={1}
+                        max={8}
+                        value={rectLength}
+                        onChange={(e) => setRectLength(Number(e.target.value))}
+                        className="w-full accent-sky-600"
+                      />
+                    </div>
+
+                    <div>
+                      <div className="mb-1.5 flex justify-between text-xs font-medium text-slate-700">
+                        <span>Chiều rộng (b)</span>
+                        <span className="font-mono font-bold text-sky-600">
+                          {rectWidth} cm
+                        </span>
+                      </div>
+                      <input
+                        type="range"
+                        min={1}
+                        max={8}
+                        value={rectWidth}
+                        onChange={(e) => setRectWidth(Number(e.target.value))}
+                        className="w-full accent-sky-600"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2.5">
+                      <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-center">
+                        <div className="text-[11px] font-medium text-amber-800">
+                          Chu vi (viền cam)
+                        </div>
+                        <div className="mt-1 font-mono text-base font-bold text-slate-900">
+                          {(rectLength + rectWidth) * 2} cm
+                        </div>
+                      </div>
+                      <div className="rounded-xl border border-sky-200 bg-sky-50 p-3 text-center">
+                        <div className="text-[11px] font-medium text-sky-800">
+                          Diện tích (số ô)
+                        </div>
+                        <div className="mt-1 font-mono text-base font-bold text-slate-900">
+                          {rectLength * rectWidth} cm²
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* 4. Khai triển hình hộp */}
                 {lab.id === 'box-unfold-3d' && (
                   <>
                     <div>
@@ -277,7 +424,7 @@ export const LabWorkspace: React.FC<LabWorkspaceProps> = ({ lab, onBack }) => {
                   </>
                 )}
 
-                {/* 3. Tế bào 3D */}
+                {/* 5. Tế bào 3D */}
                 {lab.id === 'cell-structure-3d' && (
                   <>
                     <div>
@@ -327,7 +474,7 @@ export const LabWorkspace: React.FC<LabWorkspaceProps> = ({ lab, onBack }) => {
                   </>
                 )}
 
-                {/* 4. Nguyên tử Bohr */}
+                {/* 6. Nguyên tử Bohr */}
                 {lab.id === 'atom-bohr-3d' && (
                   <>
                     <div>
@@ -366,7 +513,7 @@ export const LabWorkspace: React.FC<LabWorkspaceProps> = ({ lab, onBack }) => {
                   </>
                 )}
 
-                {/* 5. Mạch điện 3D */}
+                {/* 7. Mạch điện 3D */}
                 {lab.id === 'electric-circuit-3d' && (
                   <>
                     <div>
@@ -413,7 +560,34 @@ export const LabWorkspace: React.FC<LabWorkspaceProps> = ({ lab, onBack }) => {
                   </>
                 )}
 
-                {/* 6 & 7. Trái Đất & Tuần hoàn nước */}
+                {/* 8. Thấu kính Lớp 9 */}
+                {lab.id === 'optics-lens-3d' && (
+                  <>
+                    <div>
+                      <div className="mb-1.5 flex justify-between text-xs font-medium text-slate-700">
+                        <span>Khoảng cách từ vật đến thấu kính (d)</span>
+                        <span className="font-mono font-bold text-amber-600">
+                          {objectDist.toFixed(1)} cm
+                        </span>
+                      </div>
+                      <input
+                        type="range"
+                        min={3.5}
+                        max={7.5}
+                        step={0.2}
+                        value={objectDist}
+                        onChange={(e) => setObjectDist(Number(e.target.value))}
+                        className="w-full accent-sky-600"
+                      />
+                      <div className="mt-1 flex justify-between font-mono text-[10px] text-slate-400">
+                        <span>Gần tiêu điểm F (ảnh lớn)</span>
+                        <span>Xa thấu kính (ảnh nhỏ)</span>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* 9 & 10. Trái Đất & Tuần hoàn nước */}
                 {(lab.id === 'earth-motion' || lab.id === 'water-cycle') && (
                   <>
                     <div>

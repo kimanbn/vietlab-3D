@@ -49,10 +49,10 @@ export const HubView: React.FC<HubViewProps> = ({ onSelectLab }) => {
 
           <div className="flex items-center gap-2">
             <span className="hidden rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 font-mono text-xs text-slate-600 sm:inline-block">
-              Lớp 1 — Lớp 9
+              Đủ 9 khối lớp (1–9)
             </span>
             <span className="rounded-md border border-sky-200 bg-sky-50 px-2.5 py-1 font-mono text-xs font-medium text-sky-700">
-              {LABS_DATA.length} Labs
+              {LABS_DATA.length} bài mô phỏng
             </span>
           </div>
         </div>
@@ -65,7 +65,6 @@ export const HubView: React.FC<HubViewProps> = ({ onSelectLab }) => {
           </p>
         </div>
 
-        {/* Bộ lọc từng Lớp 1 -> 9 */}
         <div className="mt-7 flex flex-wrap items-center gap-1.5">
           <span className="mr-1 font-mono text-xs font-medium text-slate-400 uppercase">
             Khối lớp:
@@ -86,7 +85,6 @@ export const HubView: React.FC<HubViewProps> = ({ onSelectLab }) => {
           ))}
         </div>
 
-        {/* Bộ lọc Môn học */}
         <div className="mt-3.5 flex flex-wrap items-center gap-2">
           {SUBJECTS.map((sub) => {
             const isActive = selectedSubject === sub.key;
@@ -119,99 +117,145 @@ export const HubView: React.FC<HubViewProps> = ({ onSelectLab }) => {
           })}
         </div>
 
-        {/* Danh sách bài học */}
-        {filteredLabs.length === 0 ? (
-          <div className="mt-8 rounded-xl border border-dashed border-slate-300 bg-white/70 p-10 text-center">
-            <p className="font-mono text-sm text-slate-500">
-              Chưa có bài mô phỏng cho bộ lọc này. Đang tiếp tục cập nhật theo chương trình SGK!
-            </p>
-          </div>
-        ) : (
-          <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {filteredLabs.map((lab) => {
-              const badgeColor = getSubjectColor(lab.subject);
-              return (
-                <div
-                  key={lab.id}
-                  onClick={() => onSelectLab(lab)}
-                  className="group cursor-pointer overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-all hover:-translate-y-1 hover:border-sky-400 hover:shadow-md"
-                >
-                  <div className="relative h-44 w-full overflow-hidden border-b border-slate-100 bg-blueprint p-4">
-                    <div className="flex items-center justify-between">
+        <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {filteredLabs.map((lab) => {
+            const badgeColor = getSubjectColor(lab.subject);
+            return (
+              <div
+                key={lab.id}
+                onClick={() => onSelectLab(lab)}
+                className="group cursor-pointer overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-all hover:-translate-y-1 hover:border-sky-400 hover:shadow-md"
+              >
+                <div className="relative h-44 w-full overflow-hidden border-b border-slate-100 bg-blueprint p-4">
+                  <div className="flex items-center justify-between">
+                    <span
+                      className="inline-flex items-center gap-1.5 rounded border bg-white px-2.5 py-1 font-mono text-[11px] font-medium shadow-sm"
+                      style={{ borderColor: badgeColor + '40', color: badgeColor }}
+                    >
                       <span
-                        className="inline-flex items-center gap-1.5 rounded border bg-white px-2.5 py-1 font-mono text-[11px] font-medium shadow-sm"
-                        style={{ borderColor: badgeColor + '40', color: badgeColor }}
-                      >
-                        <span
-                          className="h-1.5 w-1.5 rounded-full"
-                          style={{ backgroundColor: badgeColor }}
-                        />
-                        {lab.subjectLabel}
-                      </span>
-                      <span className="rounded bg-slate-900/5 px-2 py-0.5 font-mono text-[11px] text-slate-600">
-                        {lab.gradeLabel}
-                      </span>
-                    </div>
-
-                    <div className="mt-3 flex h-24 items-center justify-center">
-                      {lab.id === 'lego-multiplication' && (
-                        <svg viewBox="0 0 220 90" className="h-full w-auto">
-                          <rect x="55" y="20" width="30" height="20" rx="3" fill="#FCA5A5" stroke="#E11D48" strokeWidth="1.5" />
-                          <rect x="95" y="20" width="30" height="20" rx="3" fill="#FCA5A5" stroke="#E11D48" strokeWidth="1.5" />
-                          <rect x="135" y="20" width="30" height="20" rx="3" fill="#FCA5A5" stroke="#E11D48" strokeWidth="1.5" />
-                          <rect x="55" y="50" width="30" height="20" rx="3" fill="#93C5FD" stroke="#2563EB" strokeWidth="1.5" />
-                          <rect x="95" y="50" width="30" height="20" rx="3" fill="#93C5FD" stroke="#2563EB" strokeWidth="1.5" />
-                          <rect x="135" y="50" width="30" height="20" rx="3" fill="#93C5FD" stroke="#2563EB" strokeWidth="1.5" />
-                        </svg>
-                      )}
-                      {lab.id === 'cell-structure-3d' && (
-                        <svg viewBox="0 0 220 90" className="h-full w-auto">
-                          <polygon points="110,12 152,32 152,62 110,82 68,62 68,32" fill="#ECFDF5" stroke="#059669" strokeWidth="1.8" />
-                          <circle cx="95" cy="45" r="10" fill="#DDD6FE" stroke="#7C3AED" strokeWidth="1.5" />
-                          <ellipse cx="125" cy="48" rx="14" ry="10" fill="#BAE6FD" stroke="#0284C7" strokeWidth="1.5" />
-                        </svg>
-                      )}
-                      {lab.id === 'earth-motion' && (
-                        <svg viewBox="0 0 220 90" className="h-full w-auto">
-                          <ellipse cx="110" cy="45" rx="85" ry="28" fill="none" stroke="#93C5FD" strokeWidth="1.5" />
-                          <circle cx="110" cy="45" r="16" fill="#F59E0B" opacity="0.25" />
-                          <circle cx="110" cy="45" r="11" fill="#F59E0B" />
-                          <g transform="translate(42, 62)">
-                            <circle cx="0" cy="0" r="8" fill="#EFF6FF" stroke="#1E3A8A" strokeWidth="1.5" />
-                            <line x1="-4" y1="12" x2="4" y2="-12" stroke="#1E3A8A" strokeWidth="1.5" />
-                          </g>
-                        </svg>
-                      )}
-                      {lab.id === 'water-cycle' && (
-                        <svg viewBox="0 0 220 90" className="h-full w-auto">
-                          <path d="M 30 65 L 85 25 L 130 55 L 165 35 L 195 65 Z" fill="#E0F2FE" stroke="#0284C7" strokeWidth="1.5" />
-                          <circle cx="65" cy="22" r="9" fill="#BAE6FD" />
-                          <circle cx="77" cy="20" r="11" fill="#BAE6FD" />
-                          <circle cx="90" cy="23" r="8" fill="#BAE6FD" />
-                        </svg>
-                      )}
-                    </div>
+                        className="h-1.5 w-1.5 rounded-full"
+                        style={{ backgroundColor: badgeColor }}
+                      />
+                      {lab.subjectLabel}
+                    </span>
+                    <span className="rounded bg-slate-900/5 px-2 py-0.5 font-mono text-[11px] text-slate-600">
+                      {lab.gradeLabel}
+                    </span>
                   </div>
 
-                  <div className="p-5">
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-[11px] tracking-wider text-slate-400">
-                        {lab.code}
-                      </span>
-                      <ArrowUpRight className="h-4 w-4 text-slate-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-sky-600" />
-                    </div>
-                    <h2 className="mt-1 text-lg font-bold text-slate-900 group-hover:text-sky-600">
-                      {lab.title}
-                    </h2>
-                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">
-                      {lab.subtitle}
-                    </p>
+                  <div className="mt-3 flex h-24 items-center justify-center">
+                    {lab.id === 'clock-3d-grade1' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <circle cx="110" cy="45" r="32" fill="#FFFFFF" stroke="#0284C7" strokeWidth="2.5" />
+                        <line x1="110" y1="45" x2="110" y2="22" stroke="#1E3A8A" strokeWidth="2" strokeLinecap="round" />
+                        <line x1="110" y1="45" x2="128" y2="45" stroke="#E11D48" strokeWidth="2.5" strokeLinecap="round" />
+                        <circle cx="110" cy="45" r="3" fill="#F59E0B" />
+                      </svg>
+                    )}
+                    {lab.id === 'lego-multiplication' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <rect x="55" y="20" width="30" height="20" rx="3" fill="#FCA5A5" stroke="#E11D48" strokeWidth="1.5" />
+                        <rect x="95" y="20" width="30" height="20" rx="3" fill="#FCA5A5" stroke="#E11D48" strokeWidth="1.5" />
+                        <rect x="135" y="20" width="30" height="20" rx="3" fill="#FCA5A5" stroke="#E11D48" strokeWidth="1.5" />
+                        <rect x="55" y="50" width="30" height="20" rx="3" fill="#93C5FD" stroke="#2563EB" strokeWidth="1.5" />
+                        <rect x="95" y="50" width="30" height="20" rx="3" fill="#93C5FD" stroke="#2563EB" strokeWidth="1.5" />
+                        <rect x="135" y="50" width="30" height="20" rx="3" fill="#93C5FD" stroke="#2563EB" strokeWidth="1.5" />
+                      </svg>
+                    )}
+                    {lab.id === 'area-grid-3d' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <rect x="65" y="18" width="90" height="54" fill="#E0F2FE" stroke="#F59E0B" strokeWidth="2" />
+                        <line x1="95" y1="18" x2="95" y2="72" stroke="#0284C7" strokeWidth="1.2" />
+                        <line x1="125" y1="18" x2="125" y2="72" stroke="#0284C7" strokeWidth="1.2" />
+                        <line x1="65" y1="36" x2="155" y2="36" stroke="#0284C7" strokeWidth="1.2" />
+                        <line x1="65" y1="54" x2="155" y2="54" stroke="#0284C7" strokeWidth="1.2" />
+                      </svg>
+                    )}
+                    {lab.id === 'box-unfold-3d' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <rect x="95" y="32" width="30" height="26" fill="#BAE6FD" stroke="#0284C7" strokeWidth="1.5" />
+                        <rect x="95" y="6" width="30" height="26" fill="#E0F2FE" stroke="#0284C7" strokeWidth="1.5" />
+                        <rect x="95" y="58" width="30" height="26" fill="#E0F2FE" stroke="#0284C7" strokeWidth="1.5" />
+                        <rect x="65" y="32" width="30" height="26" fill="#FDE68A" stroke="#D97706" strokeWidth="1.5" />
+                        <rect x="125" y="32" width="30" height="26" fill="#FDE68A" stroke="#D97706" strokeWidth="1.5" />
+                      </svg>
+                    )}
+                    {lab.id === 'cell-structure-3d' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <polygon points="110,12 152,32 152,62 110,82 68,62 68,32" fill="#ECFDF5" stroke="#059669" strokeWidth="1.8" />
+                        <circle cx="95" cy="45" r="10" fill="#DDD6FE" stroke="#7C3AED" strokeWidth="1.5" />
+                        <ellipse cx="125" cy="48" rx="14" ry="10" fill="#BAE6FD" stroke="#0284C7" strokeWidth="1.5" />
+                      </svg>
+                    )}
+                    {lab.id === 'atom-bohr-3d' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <circle cx="110" cy="45" r="34" fill="none" stroke="#94A3B8" strokeWidth="1.2" strokeDasharray="3 3" />
+                        <circle cx="110" cy="45" r="20" fill="none" stroke="#94A3B8" strokeWidth="1.2" />
+                        <circle cx="110" cy="45" r="7" fill="#F43F5E" />
+                        <circle cx="130" cy="45" r="3.5" fill="#0284C7" />
+                        <circle cx="90" cy="45" r="3.5" fill="#0284C7" />
+                        <circle cx="110" cy="11" r="3.5" fill="#0284C7" />
+                        <circle cx="110" cy="79" r="3.5" fill="#0284C7" />
+                      </svg>
+                    )}
+                    {lab.id === 'electric-circuit-3d' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <rect x="65" y="20" width="90" height="50" rx="4" fill="none" stroke="#475569" strokeWidth="1.8" />
+                        <line x1="65" y1="38" x2="65" y2="52" stroke="#0284C7" strokeWidth="4" />
+                        <circle cx="155" cy="34" r="7" fill="#FEF08A" stroke="#D97706" strokeWidth="1.5" />
+                        <circle cx="155" cy="56" r="7" fill="#FEF08A" stroke="#D97706" strokeWidth="1.5" />
+                      </svg>
+                    )}
+                    {lab.id === 'optics-lens-3d' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <line x1="30" y1="45" x2="190" y2="45" stroke="#94A3B8" strokeWidth="1.2" />
+                        <ellipse cx="110" cy="45" rx="6" ry="30" fill="#BAE6FD" stroke="#0284C7" strokeWidth="1.5" />
+                        <line x1="60" y1="45" x2="60" y2="25" stroke="#F59E0B" strokeWidth="2.5" />
+                        <line x1="60" y1="25" x2="110" y2="25" stroke="#EAB308" strokeWidth="1.2" />
+                        <line x1="110" y1="25" x2="165" y2="62" stroke="#EAB308" strokeWidth="1.2" />
+                        <line x1="165" y1="45" x2="165" y2="62" stroke="#10B981" strokeWidth="2.5" />
+                      </svg>
+                    )}
+                    {lab.id === 'earth-motion' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <ellipse cx="110" cy="45" rx="85" ry="28" fill="none" stroke="#93C5FD" strokeWidth="1.5" />
+                        <circle cx="110" cy="45" r="16" fill="#F59E0B" opacity="0.25" />
+                        <circle cx="110" cy="45" r="11" fill="#F59E0B" />
+                        <g transform="translate(42, 62)">
+                          <circle cx="0" cy="0" r="8" fill="#EFF6FF" stroke="#1E3A8A" strokeWidth="1.5" />
+                          <line x1="-4" y1="12" x2="4" y2="-12" stroke="#1E3A8A" strokeWidth="1.5" />
+                        </g>
+                      </svg>
+                    )}
+                    {lab.id === 'water-cycle' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <path d="M 30 65 L 85 25 L 130 55 L 165 35 L 195 65 Z" fill="#E0F2FE" stroke="#0284C7" strokeWidth="1.5" />
+                        <circle cx="65" cy="22" r="9" fill="#BAE6FD" />
+                        <circle cx="77" cy="20" r="11" fill="#BAE6FD" />
+                        <circle cx="90" cy="23" r="8" fill="#BAE6FD" />
+                      </svg>
+                    )}
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        )}
+
+                <div className="p-5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[11px] tracking-wider text-slate-400">
+                      {lab.code}
+                    </span>
+                    <ArrowUpRight className="h-4 w-4 text-slate-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-sky-600" />
+                  </div>
+                  <h2 className="mt-1 text-lg font-bold text-slate-900 group-hover:text-sky-600">
+                    {lab.title}
+                  </h2>
+                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">
+                    {lab.subtitle}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
 
         <div className="mt-12 flex flex-col items-start justify-between gap-4 rounded-xl border border-slate-200 bg-white p-5 sm:flex-row sm:items-center">
           <div className="flex items-start gap-3">
@@ -220,10 +264,10 @@ export const HubView: React.FC<HubViewProps> = ({ onSelectLab }) => {
             </div>
             <div>
               <h3 className="text-sm font-semibold text-slate-900">
-                Lộ trình chuẩn Kết nối tri thức với cuộc sống (Lớp 1 – Lớp 9)
+                Đã phủ đủ toàn bộ 9 khối lớp (Lớp 1 – Lớp 9) • Kết nối tri thức với cuộc sống
               </h3>
               <p className="mt-0.5 text-xs text-slate-500">
-                Hiện đã có 4 mô phỏng trọng tâm cho Lớp 2, Lớp 4 và Lớp 6. Có thể bổ sung thêm Mạch điện, Thấu kính, Hình học cắt ghép bất cứ lúc nào.
+                10 phòng thí nghiệm 3D tương tác trực tiếp trên trình duyệt cho Toán học, Vật lý, Hóa học, Sinh học và Địa lý.
               </p>
             </div>
           </div>

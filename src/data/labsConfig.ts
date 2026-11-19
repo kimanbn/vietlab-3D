@@ -62,6 +62,33 @@ export const GRADES: { key: GradeKey; label: string }[] = [
 
 export const LABS_DATA: LabItem[] = [
   {
+    id: 'clock-3d-grade1',
+    code: 'CLOCK 3D LAB',
+    title: 'Đồng hồ & Xem giờ đúng 3D',
+    subtitle:
+      'Xoay kim giờ và kim phút trên mặt đồng hồ 3D trực quan để bé tập nhận biết giờ đúng và giờ rưỡi.',
+    subject: 'math',
+    subjectLabel: 'Toán 1 & 2 • KNTT',
+    grade: 'grade-1',
+    gradeLabel: 'Lớp 1',
+    textbookRef: 'Toán 1 Tập 2 — Chủ đề Thời gian, giờ và lịch',
+    summary:
+      'Chỉnh kim giờ (màu đỏ) và kim phút (màu xanh) để quan sát cách đọc giờ trên đồng hồ kim.',
+    textbookPoints: [
+      'Trên mặt đồng hồ có các số từ 1 đến 12, kim ngắn chỉ giờ (màu đỏ) và kim dài chỉ phút (màu xanh).',
+      'Khi kim dài chỉ đúng vào số 12, kim ngắn chỉ vào số nào thì lúc đó là giờ đúng của số ấy (ví dụ: 3 giờ đúng).',
+      'Khi kim dài chỉ vào số 6, kim ngắn nằm giữa hai số thì lúc đó là giờ rưỡi (ví dụ: 3 giờ 30 phút).',
+    ],
+    quiz: {
+      question:
+        'Khi kim dài chỉ đúng số 12 và kim ngắn chỉ đúng số 8 thì đồng hồ đang chỉ mấy giờ?',
+      options: ['12 giờ', '8 giờ đúng', '8 giờ rưỡi'],
+      correctIndex: 1,
+      explanation:
+        'Chính xác! Kim dài chỉ số 12 và kim ngắn chỉ số 8 tức là 8 giờ đúng.',
+    },
+  },
+  {
     id: 'lego-multiplication',
     code: 'MATH LEGO LAB',
     title: 'Bảng nhân Lego 3D',
@@ -89,6 +116,64 @@ export const LABS_DATA: LabItem[] = [
     },
   },
   {
+    id: 'area-grid-3d',
+    code: 'AREA & PERIMETER LAB',
+    title: 'Lưới ô vuông Diện tích & Chu vi',
+    subtitle:
+      'Thay đổi chiều dài và chiều rộng hình chữ nhật để đếm từng ô vuông 1 cm² và phân biệt chu vi với diện tích.',
+    subject: 'math',
+    subjectLabel: 'Toán 3 • KNTT',
+    grade: 'grade-3',
+    gradeLabel: 'Lớp 3',
+    textbookRef: 'Toán 3 Tập 2 — Chủ đề Diện tích hình vuông, hình chữ nhật',
+    summary:
+      'Kéo chỉnh số ô chiều dài và chiều rộng để quan sát số lượng ô vuông đơn vị lấp đầy bên trong.',
+    textbookPoints: [
+      'Diện tích hình chữ nhật bằng chiều dài nhân với chiều rộng (cùng đơn vị đo): S = a × b.',
+      'Chu vi hình chữ nhật bằng chiều dài cộng chiều rộng rồi nhân với 2 (cùng đơn vị đo): P = (a + b) × 2.',
+      'Đơn vị đo diện tích thường dùng là xăng-ti-mét vuông (cm²), là diện tích của hình vuông có cạnh dài 1 cm.',
+    ],
+    quiz: {
+      question:
+        'Một hình chữ nhật có chiều dài 5 cm và chiều rộng 3 cm. Diện tích của hình chữ nhật đó là bao nhiêu?',
+      options: ['8 cm²', '15 cm²', '16 cm²'],
+      correctIndex: 1,
+      explanation:
+        'Chính xác! Diện tích hình chữ nhật là 5 × 3 = 15 cm² (gồm 15 ô vuông nhỏ 1 cm²).',
+    },
+  },
+  {
+    id: 'water-cycle',
+    code: 'WATER CYCLE LAB',
+    title: 'Vòng tuần hoàn của nước',
+    subtitle:
+      'Sa bàn 3D mô phỏng quá trình bay hơi, ngưng tụ tạo mây, mưa rơi và thấm xuống tầng nước ngầm.',
+    subject: 'physics',
+    subjectLabel: 'Khoa học 4 • KNTT',
+    grade: 'grade-4',
+    gradeLabel: 'Lớp 4',
+    textbookRef: 'Khoa học 4 — Chủ đề Chất: Vòng tuần hoàn của nước trong tự nhiên',
+    summary:
+      'Sa bàn cắt lớp địa chất trực quan đặt trên bàn học, hiển thị chu trình khép kín của nước trong tự nhiên.',
+    textbookPoints: [
+      'Nước ở biển, sông, hồ dưới tác động của nhiệt Mặt Trời sẽ bay hơi vào không khí.',
+      'Lên cao gặp lạnh, hơi nước ngưng tụ thành các hạt nước nhỏ tạo thành đám mây.',
+      'Khi các giọt nước đủ nặng sẽ rơi xuống tạo thành mưa, bổ sung nước cho sông suối, ao hồ và ngấm xuống các tầng đất đá tạo thành nước ngầm.',
+    ],
+    quiz: {
+      question:
+        'Trong vòng tuần hoàn của nước, mây được hình thành từ quá trình nào?',
+      options: [
+        'Nước mưa ngấm xuống lòng đất',
+        'Hơi nước bốc lên cao gặp lạnh và ngưng tụ',
+        'Nước biển đóng băng',
+      ],
+      correctIndex: 1,
+      explanation:
+        'Chuẩn luôn! Hơi nước bay lên gặp nhiệt độ thấp trên cao sẽ ngưng tụ thành các hạt nước li ti tạo nên mây.',
+    },
+  },
+  {
     id: 'box-unfold-3d',
     code: 'GEOMETRY UNFOLD LAB',
     title: 'Khai triển Hình hộp 3D',
@@ -97,7 +182,7 @@ export const LABS_DATA: LabItem[] = [
     subject: 'math',
     subjectLabel: 'Toán 5 & 7 • KNTT',
     grade: 'grade-5',
-    gradeLabel: 'Lớp 5 – 7',
+    gradeLabel: 'Lớp 5',
     textbookRef: 'Toán 5 — Hình hộp chữ nhật, hình lập phương & Khai triển',
     summary:
       'Quan sát cách 6 mặt của khối hộp 3D bung ra thành hình phẳng để tính diện tích xung quanh và toàn phần.',
@@ -140,6 +225,37 @@ export const LABS_DATA: LabItem[] = [
       correctIndex: 2,
       explanation:
         'Chuẩn luôn! Lục lạp chứa chất diệp lục màu xanh giúp thực vật quang hợp tạo ra chất hữu cơ.',
+    },
+  },
+  {
+    id: 'earth-motion',
+    code: 'EARTH MOTION LAB',
+    title: 'Chuyển động Trái Đất',
+    subtitle:
+      'Khám phá chuyển động tự quay quanh trục nghiêng 23,5° và quay quanh Mặt Trời tạo ra Ngày, Đêm và các Mùa.',
+    subject: 'geography',
+    subjectLabel: 'Địa lý 6 • KNTT',
+    grade: 'grade-6',
+    gradeLabel: 'Lớp 6',
+    textbookRef: 'Lịch sử & Địa lí 6 — Chương 2: Trái Đất - Hành tinh của Hệ Mặt Trời',
+    summary:
+      'Mô phỏng quỹ đạo Trái Đất và Mặt Trăng theo thời gian thực với góc nhìn đa chiều.',
+    textbookPoints: [
+      'Trái Đất tự quay quanh một trục tưởng tượng nối liền hai cực và nghiêng một góc 23°27′ (xấp xỉ 23,5°) so với mặt phẳng quỹ đạo.',
+      'Hướng tự quay của Trái Đất từ Tây sang Đông, thời gian tự quay hết một vòng là 24 giờ (1 ngày đêm).',
+      'Do Trái Đất có dạng hình cầu nên Mặt Trời chỉ chiếu sáng được một nửa: nửa được chiếu sáng là ban ngày, nửa nằm trong bóng tối là ban đêm.',
+    ],
+    quiz: {
+      question:
+        'Nguyên nhân chính sinh ra hiện tượng ngày và đêm luân phiên trên Trái Đất là gì?',
+      options: [
+        'Trái Đất chuyển động quanh Mặt Trời',
+        'Trái Đất có dạng hình cầu và tự quay quanh trục',
+        'Mặt Trăng quay quanh Trái Đất',
+      ],
+      correctIndex: 1,
+      explanation:
+        'Chính xác! Vì Trái Đất hình cầu nên luôn có một nửa được chiếu sáng, kết hợp với sự tự quay quanh trục tạo nên ngày và đêm luân phiên.',
     },
   },
   {
@@ -197,65 +313,34 @@ export const LABS_DATA: LabItem[] = [
     },
   },
   {
-    id: 'earth-motion',
-    code: 'EARTH MOTION LAB',
-    title: 'Chuyển động Trái Đất',
+    id: 'optics-lens-3d',
+    code: 'OPTICS LENS LAB',
+    title: 'Thấu kính Hội tụ & Tạo ảnh 3D',
     subtitle:
-      'Khám phá chuyển động tự quay quanh trục nghiêng 23,5° và quay quanh Mặt Trời tạo ra Ngày, Đêm và các Mùa.',
-    subject: 'geography',
-    subjectLabel: 'Địa lý 6 • KNTT',
-    grade: 'grade-6',
-    gradeLabel: 'Lớp 6',
-    textbookRef: 'Lịch sử & Địa lí 6 — Chương 2: Trái Đất - Hành tinh của Hệ Mặt Trời',
-    summary:
-      'Mô phỏng quỹ đạo Trái Đất và Mặt Trăng theo thời gian thực với góc nhìn đa chiều.',
-    textbookPoints: [
-      'Trái Đất tự quay quanh một trục tưởng tượng nối liền hai cực và nghiêng một góc 23°27′ (xấp xỉ 23,5°) so với mặt phẳng quỹ đạo.',
-      'Hướng tự quay của Trái Đất từ Tây sang Đông, thời gian tự quay hết một vòng là 24 giờ (1 ngày đêm).',
-      'Do Trái Đất có dạng hình cầu nên Mặt Trời chỉ chiếu sáng được một nửa: nửa được chiếu sáng là ban ngày, nửa nằm trong bóng tối là ban đêm.',
-    ],
-    quiz: {
-      question:
-        'Nguyên nhân chính sinh ra hiện tượng ngày và đêm luân phiên trên Trái Đất là gì?',
-      options: [
-        'Trái Đất chuyển động quanh Mặt Trời',
-        'Trái Đất có dạng hình cầu và tự quay quanh trục',
-        'Mặt Trăng quay quanh Trái Đất',
-      ],
-      correctIndex: 1,
-      explanation:
-        'Chính xác! Vì Trái Đất hình cầu nên luôn có một nửa được chiếu sáng, kết hợp với sự tự quay quanh trục tạo nên ngày và đêm luân phiên.',
-    },
-  },
-  {
-    id: 'water-cycle',
-    code: 'WATER CYCLE LAB',
-    title: 'Vòng tuần hoàn của nước',
-    subtitle:
-      'Sa bàn 3D mô phỏng quá trình bay hơi, ngưng tụ tạo mây, mưa rơi và thấm xuống tầng nước ngầm.',
+      'Di chuyển ngọn nến lại gần hoặc ra xa thấu kính hội tụ để quan sát đường truyền tia sáng và ảnh thật ngược chiều.',
     subject: 'physics',
-    subjectLabel: 'Khoa học 4 • KNTT',
-    grade: 'grade-4',
-    gradeLabel: 'Lớp 4',
-    textbookRef: 'Khoa học 4 — Chủ đề Chất: Vòng tuần hoàn của nước trong tự nhiên',
+    subjectLabel: 'KHTN 9 • KNTT',
+    grade: 'grade-9',
+    gradeLabel: 'Lớp 9',
+    textbookRef: 'KHTN 9 — Chương II: Ánh sáng - Thấu kính hội tụ',
     summary:
-      'Sa bàn cắt lớp địa chất trực quan đặt trên bàn học, hiển thị chu trình khép kín của nước trong tự nhiên.',
+      'Kéo thanh trượt khoảng cách vật d để quan sát sự hội tụ của chùm tia sáng và độ lớn của ảnh thật.',
     textbookPoints: [
-      'Nước ở biển, sông, hồ dưới tác động của nhiệt Mặt Trời sẽ bay hơi vào không khí.',
-      'Lên cao gặp lạnh, hơi nước ngưng tụ thành các hạt nước nhỏ tạo thành đám mây.',
-      'Khi các giọt nước đủ nặng sẽ rơi xuống tạo thành mưa, bổ sung nước cho sông suối, ao hồ và ngấm xuống các tầng đất đá tạo thành nước ngầm.',
+      'Tia tới song song với trục chính của thấu kính hội tụ cho tia ló đi qua tiêu điểm F′.',
+      'Tia tới đi qua quang tâm O của thấu kính thì truyền thẳng theo phương của tia tới.',
+      'Khi vật đặt ngoài khoảng tiêu cự (d > f), thấu kính hội tụ cho ảnh thật, ngược chiều với vật.',
     ],
     quiz: {
       question:
-        'Trong vòng tuần hoàn của nước, mây được hình thành từ quá trình nào?',
+        'Khi đặt một ngọn nến ở ngoài khoảng tiêu cự (d > f) của thấu kính hội tụ, ảnh thu được trên màn hứng có đặc điểm gì?',
       options: [
-        'Nước mưa ngấm xuống lòng đất',
-        'Hơi nước bốc lên cao gặp lạnh và ngưng tụ',
-        'Nước biển đóng băng',
+        'Ảnh ảo, cùng chiều với vật',
+        'Ảnh thật, ngược chiều với vật',
+        'Không tạo thành ảnh',
       ],
       correctIndex: 1,
       explanation:
-        'Chuẩn luôn! Hơi nước bay lên gặp nhiệt độ thấp trên cao sẽ ngưng tụ thành các hạt nước li ti tạo nên mây.',
+        'Chính xác! Với vật đặt ngoài tiêu cự (d > f), thấu kính hội tụ luôn tạo ra ảnh thật ngược chiều với vật.',
     },
   },
 ];
