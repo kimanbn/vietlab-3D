@@ -89,6 +89,33 @@ export const LABS_DATA: LabItem[] = [
     },
   },
   {
+    id: 'box-unfold-3d',
+    code: 'GEOMETRY UNFOLD LAB',
+    title: 'Khai triển Hình hộp 3D',
+    subtitle:
+      'Kéo thanh trượt để mở phẳng khối hộp chữ nhật và khối lập phương 3D thành 6 mặt trên mặt phẳng.',
+    subject: 'math',
+    subjectLabel: 'Toán 5 & 7 • KNTT',
+    grade: 'grade-5',
+    gradeLabel: 'Lớp 5 – 7',
+    textbookRef: 'Toán 5 — Hình hộp chữ nhật, hình lập phương & Khai triển',
+    summary:
+      'Quan sát cách 6 mặt của khối hộp 3D bung ra thành hình phẳng để tính diện tích xung quanh và toàn phần.',
+    textbookPoints: [
+      'Hình hộp chữ nhật và hình lập phương đều có 6 mặt, 8 đỉnh và 12 cạnh.',
+      'Hình lập phương có 6 mặt đều là các hình vuông bằng nhau.',
+      'Khi khai triển ra mặt phẳng, diện tích toàn phần bằng tổng diện tích của cả 6 mặt cộng lại.',
+    ],
+    quiz: {
+      question:
+        'Khi mở phẳng hoàn toàn một chiếc hộp hình lập phương ra mặt bàn, ta thu được bao nhiêu hình vuông bằng nhau?',
+      options: ['4 hình vuông', '6 hình vuông', '8 hình vuông'],
+      correctIndex: 1,
+      explanation:
+        'Chính xác! Khối lập phương gồm 6 mặt vuông bằng nhau nên khi khai triển sẽ tạo thành 6 hình vuông.',
+    },
+  },
+  {
     id: 'cell-structure-3d',
     code: 'BIO CELL LAB',
     title: 'Cấu tạo Tế bào 3D',
@@ -113,6 +140,60 @@ export const LABS_DATA: LabItem[] = [
       correctIndex: 2,
       explanation:
         'Chuẩn luôn! Lục lạp chứa chất diệp lục màu xanh giúp thực vật quang hợp tạo ra chất hữu cơ.',
+    },
+  },
+  {
+    id: 'atom-bohr-3d',
+    code: 'ATOM BOHR LAB',
+    title: 'Mô hình Nguyên tử Bohr',
+    subtitle:
+      'Khám phá hạt nhân (proton, neutron) và sự sắp xếp các lớp electron quay quanh hạt nhân theo mô hình Bohr.',
+    subject: 'chemistry',
+    subjectLabel: 'KHTN 7 • KNTT',
+    grade: 'grade-7',
+    gradeLabel: 'Lớp 7',
+    textbookRef: 'KHTN 7 — Chương I: Nguyên tử - Sơ lược về Bảng tuần hoàn',
+    summary:
+      'Chọn các nguyên tố phổ biến (H, C, O, Na) để đếm số lớp electron và electron lớp ngoài cùng.',
+    textbookPoints: [
+      'Nguyên tử gồm hạt nhân mang điện tích dương ở tâm (chứa proton và neutron) và vỏ tạo bởi các electron mang điện tích âm.',
+      'Trong nguyên tử trung hòa về điện, số proton luôn bằng số electron.',
+      'Các electron sắp xếp thành từng lớp từ trong ra ngoài: lớp thứ nhất tối đa 2 electron, lớp thứ hai tối đa 8 electron.',
+    ],
+    quiz: {
+      question:
+        'Nguyên tử Oxygen (O) có 8 electron. Số electron ở lớp thứ nhất và lớp thứ hai lần lượt là bao nhiêu?',
+      options: ['4 và 4', '2 và 6', '8 và 0'],
+      correctIndex: 1,
+      explanation:
+        'Chính xác! Lớp trong cùng chứa tối đa 2 electron, 6 electron còn lại xếp vào lớp thứ hai (2 + 6 = 8).',
+    },
+  },
+  {
+    id: 'electric-circuit-3d',
+    code: 'CIRCUIT 3D LAB',
+    title: 'Mạch điện Nối tiếp & Song song',
+    subtitle:
+      'Sa bàn mạch điện 3D: đóng/ngắt công tắc và so sánh độ sáng của bóng đèn khi mắc nối tiếp hoặc song song.',
+    subject: 'physics',
+    subjectLabel: 'KHTN 8 • KNTT',
+    grade: 'grade-8',
+    gradeLabel: 'Lớp 8',
+    textbookRef: 'KHTN 8 — Chương V: Điện - Mạch điện và tác dụng của dòng điện',
+    summary:
+      'Bật công tắc để quan sát chiều dòng dịch chuyển của hạt điện tích và độ sáng đèn trong hai cách mắc mạch.',
+    textbookPoints: [
+      'Mạch điện kín gồm nguồn điện (pin), dây dẫn, công tắc đóng và thiết bị tiêu thụ điện (bóng đèn).',
+      'Khi mắc nối tiếp 2 bóng đèn cùng loại vào một nguồn pin, hiệu điện thế bị chia đôi nên đèn sáng yếu hơn.',
+      'Khi mắc song song 2 bóng đèn, mỗi đèn đều nhận đủ hiệu điện thế của nguồn nên cả hai đèn đều sáng mạnh bình thường.',
+    ],
+    quiz: {
+      question:
+        'So với mạch mắc nối tiếp hai bóng đèn dùng cùng một nguồn pin, hai bóng đèn mắc song song sẽ sáng như thế nào?',
+      options: ['Sáng yếu hơn', 'Sáng mạnh hơn', 'Không sáng'],
+      correctIndex: 1,
+      explanation:
+        'Chuẩn xác! Trong mạch song song, mỗi nhánh đều được nối trực tiếp với hai cực của nguồn pin nên đèn sáng mạnh hơn.',
     },
   },
   {

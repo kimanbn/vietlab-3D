@@ -11,6 +11,9 @@ import { EarthMotionLab } from '../labs/EarthMotionLab';
 import { WaterCycleLab } from '../labs/WaterCycleLab';
 import { LegoMathLab } from '../labs/LegoMathLab';
 import { Cell3DLab } from '../labs/Cell3DLab';
+import { ElectricCircuitLab } from '../labs/ElectricCircuitLab';
+import { BoxUnfoldLab } from '../labs/BoxUnfoldLab';
+import { AtomBohrLab } from '../labs/AtomBohrLab';
 
 interface LabWorkspaceProps {
   lab: LabItem;
@@ -23,13 +26,24 @@ export const LabWorkspace: React.FC<LabWorkspaceProps> = ({ lab, onBack }) => {
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
 
-  // State riêng cho bài Lego Toán 2
+  // State bài Lego Toán 2
   const [legoRows, setLegoRows] = useState<number>(3);
   const [legoCols, setLegoCols] = useState<number>(4);
 
-  // State riêng cho bài Tế bào Lớp 6
+  // State bài Tế bào Lớp 6
   const [cellType, setCellType] = useState<'plant' | 'animal'>('plant');
   const [showMembrane, setShowMembrane] = useState<boolean>(true);
+
+  // State bài Mạch điện Lớp 8
+  const [circuitMode, setCircuitMode] = useState<'series' | 'parallel'>('series');
+  const [isSwitchOn, setIsSwitchOn] = useState<boolean>(true);
+
+  // State bài Khai triển hộp Lớp 5-7
+  const [unfoldPercent, setUnfoldPercent] = useState<number>(40);
+  const [isCube, setIsCube] = useState<boolean>(false);
+
+  // State bài Nguyên tử Bohr Lớp 7
+  const [atomicNumber, setAtomicNumber] = useState<number>(6);
 
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-slate-950">
@@ -62,11 +76,23 @@ export const LabWorkspace: React.FC<LabWorkspaceProps> = ({ lab, onBack }) => {
           {lab.id === 'lego-multiplication' && (
             <LegoMathLab rows={legoRows} cols={legoCols} />
           )}
+          {lab.id === 'box-unfold-3d' && (
+            <BoxUnfoldLab unfoldPercent={unfoldPercent} isCube={isCube} />
+          )}
           {lab.id === 'cell-structure-3d' && (
             <Cell3DLab
               cellType={cellType}
               showMembrane={showMembrane}
               isPaused={isPaused}
+            />
+          )}
+          {lab.id === 'atom-bohr-3d' && (
+            <AtomBohrLab atomicNumber={atomicNumber} isPaused={isPaused} />
+          )}
+          {lab.id === 'electric-circuit-3d' && (
+            <ElectricCircuitLab
+              circuitMode={circuitMode}
+              isSwitchOn={isSwitchOn}
             />
           )}
           {lab.id === 'earth-motion' && (
@@ -121,12 +147,12 @@ export const LabWorkspace: React.FC<LabWorkspaceProps> = ({ lab, onBack }) => {
           <div className="flex-1 overflow-y-auto p-5">
             {activeTab === 'controls' && (
               <div className="space-y-5">
-                {/* Điều khiển riêng cho bài Lego Toán 2 */}
+                {/* 1. Lego Toán 2 */}
                 {lab.id === 'lego-multiplication' && (
                   <>
                     <div>
                       <div className="mb-2 flex justify-between text-xs font-medium text-slate-700">
-                        <span>Số viên Lego mỗi hàng (Thừa số 1)</span>
+                        <span>Số viên Lego mỗi hàng</span>
                         <span className="font-mono font-bold text-amber-600">
                           {legoCols} viên
                         </span>
@@ -151,7 +177,7 @@ export const LabWorkspace: React.FC<LabWorkspaceProps> = ({ lab, onBack }) => {
 
                     <div>
                       <div className="mb-2 flex justify-between text-xs font-medium text-slate-700">
-                        <span>Số hàng được lấy (Thừa số 2)</span>
+                        <span>Số hàng được lấy</span>
                         <span className="font-mono font-bold text-sky-600">
                           {legoRows} hàng
                         </span>
@@ -185,7 +211,73 @@ export const LabWorkspace: React.FC<LabWorkspaceProps> = ({ lab, onBack }) => {
                   </>
                 )}
 
-                {/* Điều khiển riêng cho bài Tế bào Lớp 6 */}
+                {/* 2. Khai triển hình hộp */}
+                {lab.id === 'box-unfold-3d' && (
+                  <>
+                    <div>
+                      <div className="mb-2 text-xs font-medium text-slate-700">
+                        Chọn khối hình học
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          onClick={() => setIsCube(false)}
+                          className={[
+                            'rounded-lg border py-2 text-xs font-semibold',
+                            !isCube
+                              ? 'border-sky-600 bg-sky-600 text-white'
+                              : 'border-slate-200 bg-slate-50 text-slate-700',
+                          ].join(' ')}
+                        >
+                          Hình hộp chữ nhật
+                        </button>
+                        <button
+                          onClick={() => setIsCube(true)}
+                          className={[
+                            'rounded-lg border py-2 text-xs font-semibold',
+                            isCube
+                              ? 'border-sky-600 bg-sky-600 text-white'
+                              : 'border-slate-200 bg-slate-50 text-slate-700',
+                          ].join(' ')}
+                        >
+                          Hình lập phương
+                        </button>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="mb-2 flex justify-between text-xs font-medium text-slate-700">
+                        <span>Độ mở khai triển 2D</span>
+                        <span className="font-mono font-bold text-sky-600">
+                          {unfoldPercent}%
+                        </span>
+                      </div>
+                      <input
+                        type="range"
+                        min={0}
+                        max={100}
+                        value={unfoldPercent}
+                        onChange={(e) => setUnfoldPercent(Number(e.target.value))}
+                        className="w-full accent-sky-600"
+                      />
+                      <div className="mt-2 grid grid-cols-2 gap-2">
+                        <button
+                          onClick={() => setUnfoldPercent(0)}
+                          className="rounded-lg border border-slate-200 bg-slate-50 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100"
+                        >
+                          Gập thành khối 3D
+                        </button>
+                        <button
+                          onClick={() => setUnfoldPercent(100)}
+                          className="rounded-lg border border-slate-200 bg-slate-50 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100"
+                        >
+                          Bung phẳng 6 mặt
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* 3. Tế bào 3D */}
                 {lab.id === 'cell-structure-3d' && (
                   <>
                     <div>
@@ -232,35 +324,96 @@ export const LabWorkspace: React.FC<LabWorkspaceProps> = ({ lab, onBack }) => {
                         {isPaused ? '▶ Tiếp tục xoay' : '⏸ Dừng xoay'}
                       </button>
                     </div>
-
-                    <div className="space-y-1.5 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs">
-                      <div className="font-semibold text-slate-800">Chú thích màu sắc 3D:</div>
-                      <div className="flex items-center gap-2 text-slate-600">
-                        <span className="h-2.5 w-2.5 rounded-full bg-purple-600" />
-                        <span>Nhân tế bào (Điều khiển mọi hoạt động)</span>
-                      </div>
-                      {cellType === 'plant' ? (
-                        <>
-                          <div className="flex items-center gap-2 text-slate-600">
-                            <span className="h-2.5 w-2.5 rounded-full bg-green-500" />
-                            <span>Lục lạp (Giúp cây quang hợp)</span>
-                          </div>
-                          <div className="flex items-center gap-2 text-slate-600">
-                            <span className="h-2.5 w-2.5 rounded-full bg-sky-400" />
-                            <span>Không bào trung tâm lớn</span>
-                          </div>
-                        </>
-                      ) : (
-                        <div className="flex items-center gap-2 text-slate-600">
-                          <span className="h-2.5 w-2.5 rounded-full bg-orange-500" />
-                          <span>Ti thể (Cung cấp năng lượng)</span>
-                        </div>
-                      )}
-                    </div>
                   </>
                 )}
 
-                {/* Điều khiển tốc độ cho Trái Đất & Tuần hoàn nước */}
+                {/* 4. Nguyên tử Bohr */}
+                {lab.id === 'atom-bohr-3d' && (
+                  <>
+                    <div>
+                      <div className="mb-2 text-xs font-medium text-slate-700">
+                        Chọn nguyên tố hóa học
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        {[
+                          { z: 1, label: 'H (Z = 1) Hydro' },
+                          { z: 6, label: 'C (Z = 6) Carbon' },
+                          { z: 8, label: 'O (Z = 8) Oxygen' },
+                          { z: 11, label: 'Na (Z = 11) Natri' },
+                        ].map((el) => (
+                          <button
+                            key={el.z}
+                            onClick={() => setAtomicNumber(el.z)}
+                            className={[
+                              'rounded-lg border py-2 font-mono text-xs font-semibold',
+                              atomicNumber === el.z
+                                ? 'border-emerald-600 bg-emerald-600 text-white'
+                                : 'border-slate-200 bg-slate-50 text-slate-700',
+                            ].join(' ')}
+                          >
+                            {el.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={() => setIsPaused(!isPaused)}
+                      className="w-full rounded-lg border border-slate-300 bg-white py-2 text-xs font-medium text-slate-800 hover:bg-slate-50"
+                    >
+                      {isPaused ? '▶ Tiếp tục chuyển động' : '⏸ Dừng quan sát lớp vỏ'}
+                    </button>
+                  </>
+                )}
+
+                {/* 5. Mạch điện 3D */}
+                {lab.id === 'electric-circuit-3d' && (
+                  <>
+                    <div>
+                      <div className="mb-2 text-xs font-medium text-slate-700">
+                        Sơ đồ mắc bóng đèn
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          onClick={() => setCircuitMode('series')}
+                          className={[
+                            'rounded-lg border py-2.5 text-xs font-semibold',
+                            circuitMode === 'series'
+                              ? 'border-sky-600 bg-sky-600 text-white'
+                              : 'border-slate-200 bg-slate-50 text-slate-700',
+                          ].join(' ')}
+                        >
+                          Mắc Nối tiếp
+                        </button>
+                        <button
+                          onClick={() => setCircuitMode('parallel')}
+                          className={[
+                            'rounded-lg border py-2.5 text-xs font-semibold',
+                            circuitMode === 'parallel'
+                              ? 'border-sky-600 bg-sky-600 text-white'
+                              : 'border-slate-200 bg-slate-50 text-slate-700',
+                          ].join(' ')}
+                        >
+                          Mắc Song song
+                        </button>
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={() => setIsSwitchOn(!isSwitchOn)}
+                      className={[
+                        'w-full rounded-lg border py-2.5 text-xs font-bold transition',
+                        isSwitchOn
+                          ? 'border-emerald-600 bg-emerald-600 text-white'
+                          : 'border-rose-500 bg-rose-500 text-white',
+                      ].join(' ')}
+                    >
+                      {isSwitchOn ? '⚡ Công tắc ĐANG ĐÓNG (Bấm để ngắt)' : '🔌 Công tắc ĐANG MỞ (Bấm để đóng)'}
+                    </button>
+                  </>
+                )}
+
+                {/* 6 & 7. Trái Đất & Tuần hoàn nước */}
                 {(lab.id === 'earth-motion' || lab.id === 'water-cycle') && (
                   <>
                     <div>
