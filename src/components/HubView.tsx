@@ -42,15 +42,12 @@ export const HubView: React.FC<HubViewProps> = ({ onSelectLab }) => {
                 VIETLAB <span className="text-sky-600">3D</span>
               </div>
               <div className="font-mono text-[10px] tracking-widest text-slate-400 uppercase">
-                Kết nối tri thức với cuộc sống
+                KNTT (1–9) & Cambridge Stage 3
               </div>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="hidden rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 font-mono text-xs text-slate-600 sm:inline-block">
-              Đủ 9 khối lớp (1–9)
-            </span>
             <span className="rounded-md border border-sky-200 bg-sky-50 px-2.5 py-1 font-mono text-xs font-medium text-sky-700">
               {LABS_DATA.length} bài mô phỏng
             </span>
@@ -61,10 +58,11 @@ export const HubView: React.FC<HubViewProps> = ({ onSelectLab }) => {
       <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
         <div className="max-w-2xl">
           <p className="text-base leading-relaxed text-slate-600 sm:text-lg">
-            Phòng thí nghiệm mô phỏng 3D tương tác bám sát chương trình sách giáo khoa <b>Kết nối tri thức với cuộc sống</b> từ Lớp 1 đến Lớp 9.
+            Phòng thí nghiệm mô phỏng 3D tương tác bám sát chương trình <b>Kết nối tri thức (Lớp 1–9)</b> và <b>Cambridge Primary Stage 3 (English)</b>.
           </p>
         </div>
 
+        {/* Bộ lọc Khối lớp */}
         <div className="mt-7 flex flex-wrap items-center gap-1.5">
           <span className="mr-1 font-mono text-xs font-medium text-slate-400 uppercase">
             Khối lớp:
@@ -77,6 +75,8 @@ export const HubView: React.FC<HubViewProps> = ({ onSelectLab }) => {
                 'rounded-md border px-2.5 py-1 font-mono text-xs transition-all',
                 selectedGrade === g.key
                   ? 'border-slate-900 bg-slate-900 font-semibold text-white shadow-sm'
+                  : g.key === 'cambridge-3'
+                  ? 'border-indigo-200 bg-indigo-50 font-semibold text-indigo-700 hover:bg-indigo-100'
                   : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50',
               ].join(' ')}
             >
@@ -85,6 +85,7 @@ export const HubView: React.FC<HubViewProps> = ({ onSelectLab }) => {
           ))}
         </div>
 
+        {/* Bộ lọc Môn học */}
         <div className="mt-3.5 flex flex-wrap items-center gap-2">
           {SUBJECTS.map((sub) => {
             const isActive = selectedSubject === sub.key;
@@ -117,6 +118,7 @@ export const HubView: React.FC<HubViewProps> = ({ onSelectLab }) => {
           })}
         </div>
 
+        {/* Danh sách thẻ bài học */}
         <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredLabs.map((lab) => {
             const badgeColor = getSubjectColor(lab.subject);
@@ -143,7 +145,65 @@ export const HubView: React.FC<HubViewProps> = ({ onSelectLab }) => {
                     </span>
                   </div>
 
+                  {/* Minh họa vector Blueprint */}
                   <div className="mt-3 flex h-24 items-center justify-center">
+                    {lab.id === 'cam-light-shadow' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <rect x="35" y="38" width="24" height="14" rx="2" fill="#0284C7" />
+                        <polygon points="59,40 165,15 165,75 59,50" fill="#FEF08A" opacity="0.4" />
+                        <rect x="102" y="32" width="20" height="26" fill="#F59E0B" stroke="#B45309" strokeWidth="1.5" />
+                        <rect x="165" y="12" width="6" height="66" fill="#334155" />
+                      </svg>
+                    )}
+                    {lab.id === 'cam-magnets' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <rect x="42" y="34" width="28" height="22" fill="#0284C7" />
+                        <rect x="70" y="34" width="28" height="22" fill="#E11D48" />
+                        <rect x="122" y="34" width="28" height="22" fill="#0284C7" />
+                        <rect x="150" y="34" width="28" height="22" fill="#E11D48" />
+                        <line x1="102" y1="45" x2="118" y2="45" stroke="#64748B" strokeWidth="2" strokeDasharray="3 2" />
+                      </svg>
+                    )}
+                    {lab.id === 'cam-friction' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <line x1="30" y1="66" x2="190" y2="66" stroke="#0284C7" strokeWidth="3" />
+                        <rect x="65" y="42" width="44" height="18" rx="4" fill="#E11D48" />
+                        <circle cx="76" cy="61" r="6" fill="#1E293B" />
+                        <circle cx="98" cy="61" r="6" fill="#1E293B" />
+                        <line x1="118" y1="51" x2="155" y2="51" stroke="#94A3B8" strokeWidth="2" strokeDasharray="4 3" />
+                      </svg>
+                    )}
+                    {lab.id === 'cam-plant-transport' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <rect x="92" y="56" width="36" height="22" rx="3" fill="#E0F2FE" stroke="#0284C7" strokeWidth="1.5" />
+                        <line x1="110" y1="56" x2="110" y2="28" stroke="#16A34A" strokeWidth="3" />
+                        <circle cx="110" cy="24" r="10" fill="#BAE6FD" stroke="#0284C7" strokeWidth="1.5" />
+                        <circle cx="110" cy="24" r="4" fill="#FACC15" />
+                      </svg>
+                    )}
+                    {lab.id === 'cam-fractions' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <rect x="50" y="22" width="60" height="18" fill="#0284C7" stroke="#0369A1" strokeWidth="1.2" />
+                        <rect x="110" y="22" width="60" height="18" fill="#E2E8F0" stroke="#94A3B8" strokeWidth="1.2" />
+                        <rect x="50" y="50" width="30" height="18" fill="#F59E0B" stroke="#B45309" strokeWidth="1.2" />
+                        <rect x="80" y="50" width="30" height="18" fill="#F59E0B" stroke="#B45309" strokeWidth="1.2" />
+                        <rect x="110" y="50" width="30" height="18" fill="#E2E8F0" stroke="#94A3B8" strokeWidth="1.2" />
+                        <rect x="140" y="50" width="30" height="18" fill="#E2E8F0" stroke="#94A3B8" strokeWidth="1.2" />
+                      </svg>
+                    )}
+                    {lab.id === 'cam-3d-shapes' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <polygon points="110,14 150,68 70,68" fill="#A7F3D0" stroke="#059669" strokeWidth="1.8" />
+                        <line x1="110" y1="14" x2="110" y2="68" stroke="#059669" strokeWidth="1.2" strokeDasharray="3 2" />
+                      </svg>
+                    )}
+                    {lab.id === 'cam-angle-robot' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <circle cx="110" cy="45" r="28" fill="none" stroke="#94A3B8" strokeWidth="1.5" strokeDasharray="3 3" />
+                        <rect x="98" y="34" width="24" height="22" rx="4" fill="#38BDF8" stroke="#0284C7" strokeWidth="1.5" />
+                        <polygon points="110,16 116,28 104,28" fill="#E11D48" />
+                      </svg>
+                    )}
                     {lab.id === 'clock-3d-grade1' && (
                       <svg viewBox="0 0 220 90" className="h-full w-auto">
                         <circle cx="110" cy="45" r="32" fill="#FFFFFF" stroke="#0284C7" strokeWidth="2.5" />
@@ -160,6 +220,23 @@ export const HubView: React.FC<HubViewProps> = ({ onSelectLab }) => {
                         <rect x="55" y="50" width="30" height="20" rx="3" fill="#93C5FD" stroke="#2563EB" strokeWidth="1.5" />
                         <rect x="95" y="50" width="30" height="20" rx="3" fill="#93C5FD" stroke="#2563EB" strokeWidth="1.5" />
                         <rect x="135" y="50" width="30" height="20" rx="3" fill="#93C5FD" stroke="#2563EB" strokeWidth="1.5" />
+                      </svg>
+                    )}
+                    {lab.id === 'rolling-shapes-3d' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <line x1="40" y1="68" x2="185" y2="45" stroke="#64748B" strokeWidth="2" />
+                        <circle cx="75" cy="48" r="13" fill="#FCA5A5" stroke="#E11D48" strokeWidth="1.5" />
+                        <rect x="108" y="32" width="24" height="22" rx="3" fill="#BAE6FD" stroke="#0284C7" strokeWidth="1.5" />
+                        <rect x="148" y="26" width="20" height="20" fill="#FDE68A" stroke="#D97706" strokeWidth="1.5" />
+                      </svg>
+                    )}
+                    {lab.id === 'balance-scale-3d' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <line x1="110" y1="25" x2="110" y2="75" stroke="#334155" strokeWidth="2.5" />
+                        <line x1="90" y1="75" x2="130" y2="75" stroke="#334155" strokeWidth="3" />
+                        <line x1="60" y1="32" x2="160" y2="32" stroke="#0284C7" strokeWidth="2.5" />
+                        <rect x="48" y="38" width="24" height="14" rx="2" fill="#FDE68A" stroke="#D97706" strokeWidth="1.5" />
+                        <rect x="148" y="40" width="24" height="12" rx="2" fill="#FCA5A5" stroke="#E11D48" strokeWidth="1.5" />
                       </svg>
                     )}
                     {lab.id === 'area-grid-3d' && (
@@ -185,6 +262,23 @@ export const HubView: React.FC<HubViewProps> = ({ onSelectLab }) => {
                         <polygon points="110,12 152,32 152,62 110,82 68,62 68,32" fill="#ECFDF5" stroke="#059669" strokeWidth="1.8" />
                         <circle cx="95" cy="45" r="10" fill="#DDD6FE" stroke="#7C3AED" strokeWidth="1.5" />
                         <ellipse cx="125" cy="48" rx="14" ry="10" fill="#BAE6FD" stroke="#0284C7" strokeWidth="1.5" />
+                      </svg>
+                    )}
+                    {lab.id === 'states-of-matter-3d' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <rect x="75" y="15" width="70" height="60" rx="4" fill="#F0F9FF" stroke="#0284C7" strokeWidth="1.5" />
+                        <circle cx="92" cy="58" r="5" fill="#0284C7" />
+                        <circle cx="110" cy="58" r="5" fill="#0284C7" />
+                        <circle cx="128" cy="58" r="5" fill="#0284C7" />
+                        <circle cx="98" cy="36" r="4" fill="#38BDF8" />
+                        <circle cx="122" cy="28" r="4" fill="#38BDF8" />
+                      </svg>
+                    )}
+                    {lab.id === 'earth-layers-3d' && (
+                      <svg viewBox="0 0 220 90" className="h-full w-auto">
+                        <circle cx="110" cy="45" r="32" fill="#BAE6FD" stroke="#0284C7" strokeWidth="1.8" />
+                        <circle cx="110" cy="45" r="22" fill="#FED7AA" stroke="#EA580C" strokeWidth="1.5" />
+                        <circle cx="110" cy="45" r="10" fill="#FEF08A" stroke="#CA8A04" strokeWidth="1.5" />
                       </svg>
                     )}
                     {lab.id === 'atom-bohr-3d' && (
@@ -264,10 +358,10 @@ export const HubView: React.FC<HubViewProps> = ({ onSelectLab }) => {
             </div>
             <div>
               <h3 className="text-sm font-semibold text-slate-900">
-                Đã phủ đủ toàn bộ 9 khối lớp (Lớp 1 – Lớp 9) • Kết nối tri thức với cuộc sống
+                21 phòng thí nghiệm 3D tương tác (14 bài KNTT + 7 bài Cambridge Stage 3)
               </h3>
               <p className="mt-0.5 text-xs text-slate-500">
-                10 phòng thí nghiệm 3D tương tác trực tiếp trên trình duyệt cho Toán học, Vật lý, Hóa học, Sinh học và Địa lý.
+                Chọn nút 🇬🇧 Cambridge Stage 3 ở trên để lọc nhanh toàn bộ bài học tiếng Anh.
               </p>
             </div>
           </div>
